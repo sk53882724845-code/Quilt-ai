@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="Quilt AI — create images, generate voice, and chat in one clean creative workspace.">
+  <title>Quilt AI — Create anything</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand-row">
+        <div class="brand-mark">Q</div>
+        <span class="brand-name">Quilt AI</span>
+        <button class="icon-btn sidebar-close" id="closeSidebar" aria-label="Close menu">×</button>
+      </div>
+      <button class="new-chat" id="newChat"><span class="plus">＋</span> New chat</button>
+      <div class="side-label">CREATE</div>
+      <button class="nav-item active" data-mode="chat"><span class="nav-icon">◌</span> Chat</button>
+      <button class="nav-item" data-mode="image"><span class="nav-icon">▧</span> Image studio <span class="soon-tag">AI</span></button>
+      <button class="nav-item" data-mode="voice"><span class="nav-icon">♫</span> Voice studio <span class="soon-tag">AI</span></button>
+      <div class="sidebar-bottom">
+        <div class="profile-avatar">Q</div>
+        <div class="profile-copy"><strong>Quilt Creator</strong><span>Free workspace</span></div>
+        <button class="icon-btn" id="settingsBtn" aria-label="Settings">⚙</button>
+      </div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar">
+        <button class="icon-btn menu-btn" id="openSidebar" aria-label="Open menu">☰</button>
+        <div class="mobile-brand"><span class="brand-mark small">Q</span> Quilt AI</div>
+        <div class="topbar-right"><span class="status-dot"></span><span>Creative workspace</span></div>
+      </header>
+
+      <section class="workspace">
+        <div class="welcome" id="welcome">
+          <div class="welcome-mark">Q</div>
+          <p class="eyebrow">YOUR CREATIVE SPACE</p>
+          <h1>What will you create <span>today?</span></h1>
+          <p class="welcome-subtitle">Chat, imagine images, and turn words into voice — all in one place.</p>
+          <div class="mode-cards">
+            <button class="mode-card" data-mode="chat">
+              <span class="card-icon chat-icon">◌</span><strong>Chat with Quilt</strong>
+              <span>Brainstorm ideas and get help with your projects.</span><b>Start chatting ↗</b>
+            </button>
+            <button class="mode-card" data-mode="image">
+              <span class="card-icon image-icon">▧</span><strong>Create an image</strong>
+              <span>Describe an image you want to make.</span><b>Open image studio ↗</b>
+            </button>
+            <button class="mode-card" data-mode="voice">
+              <span class="card-icon voice-icon">♫</span><strong>Generate a voice</strong>
+              <span>Prepare narration from your text.</span><b>Open voice studio ↗</b>
+            </button>
+          </div>
+        </div>
+
+        <div class="studio-header hidden" id="studioHeader">
+          <div class="studio-icon" id="studioIcon">▧</div>
+          <div><p class="eyebrow" id="studioEyebrow">QUILT CREATIVE TOOLS</p><h1 id="studioTitle">Image studio</h1><p id="studioDescription">Describe your idea and prepare it for image generation.</p></div>
+        </div>
+
+        <div class="conversation hidden" id="conversation" aria-live="polite"></div>
+        <div class="studio-panel hidden" id="imagePanel">
+          <label for="imagePrompt">Describe your image</label>
+          <textarea id="imagePrompt" rows="4" placeholder="A cozy Minecraft cottage in a magical forest, soft morning light, detailed game art..."></textarea>
+          <div class="form-row"><label class="select-label" for="imageStyle">Style</label><select id="imageStyle"><option>Choose automatically</option><option>Photorealistic</option><option>Anime</option><option>Digital art</option><option>Logo / vector</option><option>Gaming thumbnail</option></select></div>
+          <button class="primary-btn" id="imageGenerate"><span>✦</span> Prepare image request</button>
+          <div class="notice" id="imageNotice"><strong>Model connection needed</strong><span>This interface is ready. Connect an image model/backend to generate and download real images.</span></div>
+          <div class="result-placeholder" id="imageResult"><div class="result-art">▧</div><strong>Your creation will appear here</strong><span>Generated images will show here after an AI model is connected.</span></div>
+        </div>
+
+        <div class="studio-panel hidden" id="voicePanel">
+          <label for="voiceText">Text to speak</label>
+          <textarea id="voiceText" rows="5" placeholder="Paste your YouTube narration here..."></textarea>
+          <div class="form-grid">
+            <div><label class="select-label" for="voiceLanguage">Language</label><select id="voiceLanguage"><option>English</option><option>Hindi</option><option>Hinglish</option><option>Spanish</option><option>French</option><option>Japanese</option></select></div>
+            <div><label class="select-label" for="voiceType">Voice style</label><select id="voiceType"><option>Natural</option><option>Warm narrator</option><option>Bright</option><option>Calm</option></select></div>
+          </div>
+          <button class="primary-btn" id="voiceGenerate"><span>♫</span> Prepare voice request</button>
+          <div class="notice" id="voiceNotice"><strong>Model connection needed</strong><span>Connect a text-to-speech model/backend to create and download audio files.</span></div>
+          <div class="audio-placeholder"><div class="audio-wave">▂ ▄ ▆ ▃ ▇ ▄ ▂ ▅ ▃ ▆ ▂ ▄ ▇ ▃ ▅ ▂ ▄ ▆</div><strong>Your audio will appear here</strong><span>MP3/WAV export depends on the connected voice model.</span></div>
+        </div>
+
+        <div class="composer-wrap" id="composerWrap">
+          <form class="composer" id="chatForm">
+            <textarea id="chatInput" rows="1" aria-label="Message Quilt AI" placeholder="Message Quilt AI..."></textarea>
+            <div class="composer-bottom"><div class="composer-tools"><button type="button" class="tool-btn" data-mode="image">＋ <span>Image</span></button><button type="button" class="tool-btn" data-mode="voice">♫ <span>Voice</span></button></div><button class="send-btn" type="submit" aria-label="Send message">↑</button></div>
+          </form>
+          <p class="disclaimer">Quilt AI can make mistakes. Check important information.</p>
+        </div>
+      </section>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="app.js"></script>
+</body>
+</html>
